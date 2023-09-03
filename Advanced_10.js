@@ -66,11 +66,9 @@ const arr = [
 ];
 
 async function urlArraysFetch(urlArr) {
-  let count = 0;
   return Promise.all(
     urlArr.map(async (url) => {
       const response = await fetch(url);
-      count++;
       if (response.status === 200) {
         return response.json();
       } else {
