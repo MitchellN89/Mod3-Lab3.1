@@ -57,31 +57,33 @@ async function asyncAwaitFetch(url) {
 // Using Promise.all
 
 const arr = [
-  "https://jsonplaceholder.typicode.com/todos/2",
   "https://jsonplaceholder.typicode.com/todos/1",
+  "https://jsonplaceholder.typicode.com/todos/2",
   "https://jsonplaceholder.typicode.com/todos/3",
   "https://jsonplaceholder.typicode.com/todos/4",
   "https://jsonplaceholder.typicode.com/todos/5",
-  // "https://jsonplaceholder.typicode.com/todos/Q", //uncomment this in order to have the Promise.all reject.
+  "https://jsonplaceholder.typicode.com/todos/Q", //uncomment this in order to have the Promise.all reject.
 ];
 
 async function urlArraysFetch(urlArr) {
-  const fetchArrays = [];
-  for (let url of urlArr) {
-    const response = await fetch(url);
-    if (response.status === 200) {
-      fetchArrays.push(await response.json());
-    } else {
-      fetchArrays.push(Promise.reject(response.status));
-    }
-  }
-  return Promise.all(fetchArrays);
+  let count = 0;
+  return Promise.all(
+    urlArr.map(async (url) => {
+      const response = await fetch(url);
+      count++;
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(response.status);
+      }
+    })
+  );
 }
 
 urlArraysFetch(arr)
   .then((res) => {
     console.log(res);
   })
-  .catch((status) => {
-    console.log(`Request failed with status ${status}`);
+  .catch((rej) => {
+    console.log(`Request failed with status ${rej}`);
   });
