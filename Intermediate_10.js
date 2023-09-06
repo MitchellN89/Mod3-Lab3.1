@@ -21,7 +21,7 @@ console.log(today.getSeconds());
 
 // c) Calculate and print your age as: 'I am x years, y months and z days old'
 
-const myAge = new Date("1989-09-19");
+const myAge = new Date("1995-05-03");
 let myBirthYear = myAge.getFullYear(),
   myBirthMonth = myAge.getMonth(),
   myBirthDay = myAge.getDate();

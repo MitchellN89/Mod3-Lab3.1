@@ -31,7 +31,7 @@ const car2 = { ...car, year: 2000 }; // I guess I could have used Object.create(
 // b)? Why?
 
 // The way I've done it, using spread and wrapping the call in a function, it should call it's own properties.
-// This is because car2.description is a function that uses 'this' to reference it's own properties
+// This is because car2.description is a function that uses 'this' to reference it's own properties.
 
 setTimeout(() => {
   car2.description();
@@ -40,12 +40,13 @@ setTimeout(() => {
 // d) Use bind to fix the description method so that it can be called from within
 // setTimeout without a wrapper function
 
-setTimeout(car2.description.bind(car2), 500);
+car2.description = car2.description.bind(car2);
+setTimeout(car2.description, 500);
 
 // e) Change another property of the car by creating a clone and overriding it, and test that
 // setTimeout still uses the bound value from d)
 
-const car3 = { ...car, make: " Toyota" };
-setTimeout(car3.description.bind(car), 600);
-// not sure I've fully understood the question here but this uses car3s description method but binds car to it
-// This means the print will be cars details even though car3s desciption method was used
+const car3 = { ...car2, make: " Toyota" };
+setTimeout(car3.description, 600);
+
+//  Indeed it will, I cloned the method from car2 which was bound to car2. So car3s description method is still bound to car2

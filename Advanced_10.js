@@ -62,7 +62,7 @@ const arr = [
   "https://jsonplaceholder.typicode.com/todos/3",
   "https://jsonplaceholder.typicode.com/todos/4",
   "https://jsonplaceholder.typicode.com/todos/5",
-  "https://jsonplaceholder.typicode.com/todos/Q", //uncomment this in order to have the Promise.all reject.
+  // "https://jsonplaceholder.typicode.com/todos/Q", //uncomment this in order to have the Promise.all reject.
 ];
 
 async function urlArraysFetch(urlArr) {
